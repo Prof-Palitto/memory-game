@@ -64,16 +64,31 @@
         //  b. se NON coincidono rigira le carte scoperte
         carteGirate.push({ n: nome, p: posizione });
         if (carteGirate.length == 2) {
-          if (carteGirate[0].nome == carteGirate[1].nome) {
-            //carte coincidono
-            carte[carteGirate[0].p].setAttribute("src", "images/vuota.png");
-            carte[carteGirate[1].p].setAttribute("src", "images/vuota.png");
-            carte[carteGirate[0].p].removeEventListener("click", giraCarta);
-            carte[carteGirate[1].p].removeEventListener("click", giraCarta);
+          //controllo che le carte girate siano 2
+          console.log(carteGirate); //da rimuovere poi a codice finito FIX_ME
+          setTimeout(() => {
+            //le seguenti istruzioni verranno eseguite dopo 100ms per dare tempo alla carta cliccata di girarsi
+            console.log("waiting 0.1 sec");
+            if (carteGirate[0].n == carteGirate[1].n) {
+              //verifico che le carte girate coincidono
+              //carte coincidono
+              alert("carte coincidono... verranno rimosse dal tavolo"); //allertiamo giocatore che le carte verranno rimosse
+              //sostituiamo le immagini delle carte con la carta vuota che avrà lo stesso colore del tavolo dando l'effetto
+              //della carta rimossa
+              carte[carteGirate[0].p].setAttribute("src", "images/vuota.png");
+              carte[carteGirate[1].p].setAttribute("src", "images/vuota.png");
+              //rimuoviamo l'ascoltatore dell'evento per l'elemento img corrispondente alle carte "rimosse"
+              carte[carteGirate[0].p].removeEventListener("click", giraCarta);
+              carte[carteGirate[1].p].removeEventListener("click", giraCarta);
+            } else {
+              alert("sbagliato... sarai più fortunato la prossima volta");
+              //rigiriamo le carte per la prossima mano di gioco
+              carte[carteGirate[0].p].setAttribute("src", "images/blank.png");
+              carte[carteGirate[1].p].setAttribute("src", "images/blank.png");
+            }
+            //al termine della mano di gioco svuotiamo delle carte girate
             carteGirate = [];
-          } else {
-          }
-        } else {
+          }, 100);
         }
       }
     </script>
